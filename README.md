@@ -1,2 +1,2 @@
-# basicNodeExpress
-basic server on node and express
+# basicNode
+basic server on node
