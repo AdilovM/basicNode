@@ -111,16 +111,23 @@ var app = express();
 var fortune = require('./lib/fortune.js')
 //  set up handlebars view engine
 
-// var fortunes = [
-//   "Conquer your fears or they will conquer you.", "Rivers need springs.",
-//   "Do not fear what you don't know.",
-//   "You will have a pleasant surprise.", "Whenever possible, keep it simple.",
-//   ];
+var fortunes = [
+  "Conquer your fears or they will conquer you.", "Rivers need springs.",
+  "Do not fear what you don't know.",
+  "You will have a pleasant surprise.", "Whenever possible, keep it simple.",
+  ];
 
 app.set('port', process.env.PORT || 3000);
 var handlebars = require('express3-handlebars') .create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+
+//middleware to detect test = 1
+
+app.use(function(req, res, next){
+  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  next();
+});
 
 
 //Static Files and Views
